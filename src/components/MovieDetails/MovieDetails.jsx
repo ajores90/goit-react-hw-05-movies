@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import axios from 'axios';
 import {
   Container,
@@ -82,7 +82,9 @@ const MovieDetails = () => {
         <AdditionalInfoTitle>Additional information</AdditionalInfoTitle>
         <AdditionalInfoLink to="cast">Cast</AdditionalInfoLink>
         <AdditionalInfoLink to="reviews">Reviews</AdditionalInfoLink>
-        <Outlet />
+        <Suspense fallback={<Loading />}>
+          <Outlet />
+        </Suspense>
       </div>
     </Container>
   );
