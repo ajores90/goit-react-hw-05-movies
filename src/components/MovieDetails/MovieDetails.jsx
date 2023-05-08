@@ -16,7 +16,7 @@ import {
 } from './MovieDetails.styled';
 import { useParams, Outlet, useLocation } from 'react-router-dom';
 import Loading from '../Loading/Loading';
-import fallbackPoster from '../../images/no_poster.png';
+import fallbackPoster from '../../images/no_image.png';
 
 const MovieDetails = () => {
   const [movieDetails, setMovieDetails] = useState(null);

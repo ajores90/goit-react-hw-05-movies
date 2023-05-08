@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Title, MovieList, MovieItem, MovieLink } from './HomePage.styled';
+import {
+  Container,
+  Title,
+  MovieList,
+  MovieItem,
+  MovieLink,
+  MoviePoster,
+} from './HomePage.styled';
 import { useLocation } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
 
@@ -36,7 +43,7 @@ const HomePage = () => {
   }
 
   return (
-    <Container >
+    <Container>
       <Title>Trending today</Title>
       <MovieList>
         {movies.map(movie => (
@@ -47,12 +54,16 @@ const HomePage = () => {
                 state: { from: location },
               }}
             >
+              <MoviePoster
+                src={`https://image.tmdb.org/t/p/w185${movie.poster_path}`}
+                alt={`${movie.title} poster`}
+              />
               {movie.title}
             </MovieLink>
           </MovieItem>
         ))}
       </MovieList>
-    </Container >
+    </Container>
   );
 };
 

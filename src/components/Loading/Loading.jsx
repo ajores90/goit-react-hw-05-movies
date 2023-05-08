@@ -1,17 +1,17 @@
-import { TailSpin } from 'react-loader-spinner';
+import { RotatingLines } from 'react-loader-spinner';
+import { LoaderWrapper } from './Loading.styled';
 
 const Loading = () => {
   return (
-    <TailSpin
-      height="30"
-      width="30"
-      color="#768F96"
-      ariaLabel="tail-spin-loading"
-      radius="1"
-      wrapperStyle={{}}
-      wrapperClass=""
-      visible={true}
-    />
+    <LoaderWrapper>
+      <RotatingLines
+        strokeColor="grey"
+        strokeWidth="5"
+        animationDuration="0.75"
+        width="120"
+        visible={true}
+      />
+    </LoaderWrapper>
   );
 };
 

@@ -49,23 +49,40 @@ export const MovieList = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
+  justify-content: center; // Added this line to center the movie items
 `;
 
 export const MovieItem = styled.li`
-  flex: 0 0 calc(33.333% - 20px);
+  flex: 0 0 calc(25% - 20px); // Updated the flex-basis value for 4 movies per row
   margin: 10px;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+  }
 `;
 
 export const MovieLink = styled(Link)`
-  display: block;
+  display: flex;
+  flex-direction: column;
   padding: 15px;
   text-decoration: none;
   color: #333;
+  align-items: center;
+  gap: 15px;
+  height: 100%;
+  font-weight: bold;
+  text-align: center;
+`;
 
-  &:hover {
-    color: #007bff;
-  }
+export const MoviePoster = styled.img`
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 450px;
 `;

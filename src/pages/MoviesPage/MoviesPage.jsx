@@ -1,12 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Container, Title, Form, Input, Button, MovieList, MovieItem, MovieLink } from './MoviesPage.styled';
 import {
-  useNavigate,
-  useSearchParams,
-  useLocation,
-} from 'react-router-dom';
+  Container,
+  Title,
+  Form,
+  Input,
+  Button,
+  MovieList,
+  MovieItem,
+  MovieLink,
+  MoviePoster,
+} from './MoviesPage.styled';
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import Loading from '../../components/Loading/Loading';
+import fallbackPoster from '../../images/no_image.png';
+import Notiflix from 'notiflix';
+
+Notiflix.Notify.init({
+  width: '300px',
+  position: 'center-top',
+  fontSize: '18px',
+  cssAnimationStyle: 'zoom',
+});
 
 const MoviesPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -31,6 +46,9 @@ const MoviesPage = () => {
 
     try {
       const response = await axios.get(url);
+      if (response.data.results.length === 0) {
+        Notiflix.Notify.failure('No movies found with that title.');
+      }
       setMovies(response.data.results);
       setLoading(false);
     } catch (error) {
@@ -48,6 +66,8 @@ const MoviesPage = () => {
     navigate(`/movies?query=${searchQuery}`);
   };
 
+  const posterBaseUrl = 'https://image.tmdb.org/t/p/w185';
+
   return (
     <Container>
       <Title>Movie search</Title>
@@ -64,13 +84,20 @@ const MoviesPage = () => {
       {loading && <Loading />}
 
       <MovieList>
-        {movies.map(movie => (
-          <MovieItem key={movie.id}>
-            <MovieLink to={`${movie.id}`} state={{ from: location }}>
-              {movie.title}
-            </MovieLink>
-          </MovieItem>
-        ))}
+        {movies.map(movie => {
+          const posterUrl = movie.poster_path
+            ? posterBaseUrl + movie.poster_path
+            : fallbackPoster;
+
+          return (
+            <MovieItem key={movie.id}>
+              <MovieLink to={`${movie.id}`} state={{ from: location }}>
+                <MoviePoster src={posterUrl} alt={`${movie.title} poster`} />
+                {movie.title}
+              </MovieLink>
+            </MovieItem>
+          );
+        })}
       </MovieList>
     </Container>
   );
